@@ -1,0 +1,15 @@
+version: '3'
+services:
+    phpldapadmin:
+        image: [[ IMAGE_NAME ]]
+        container_name: [[ SERVICE_NAME ]]
+        network_mode: bridge
+        restart: always
+        ports:
+            - "80:80"
+        environment:
+            - SERVER_NAME=[[ NAME ]] # for example —> ShannonAI Server
+            - BASE_DN=[[ BASE_DN ]] # for example —>  dc=shannon,dc=com, *You Need The Same BASE_DN As OPENLDAP
+            - LDAP_HOST=[[ HOST ]] # for example —> 10.0.2.15, *The IP that connects to the ldap service
+        volumes:
+            - ./logs:/var/log/apache2
