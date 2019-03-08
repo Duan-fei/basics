@@ -1,0 +1,33 @@
+version: '3.2'
+services:
+    openvpn:
+        image: [[ IMAGE_NAME ]] 
+        container_name: [[ SERVICE_NAME ]]
+        network_mode: host
+        restart: always
+        volumes:
+            - ./data:/etc/openvpn
+        ports:
+            - "1194"
+        cap_add:
+            - NET_ADMIN
+        environment:
+            AUTH_TYPE: [[ AUTH_TYPE ]]
+            OPENVPN_SERVER: [[ SERVER_IP ]]  # Server address and distribution IP address(for example: 172.19.0.0 255.255.0.0)
+            PUSH: [[ PUSH_SERVER_IP ]]  # IP addresses that allow client access(for example: 172.31.0.0 255.255.0.0)
+            CLIENTREMOTE: [[ CONNECT_SERVER_IP ]]  # The client connects to the server address(for example: 192.168.33.10)
+            LDAP_SERVICE_URL: [[ LDAP_SERVICE_URL ]]  # The ldap server to which you need to connect(for example: ldap://ldap.example.com)
+            LDAP_BIND_DN: [[ LDAP_BIND_DN ]]  # The entry to connect to(for example: cn=admin,dc=example,dc=com)
+            LDAP_PASSWORD: [[ LDAP_PASSWORD ]]  # Entry password
+            LDAP_TLS: [[ LDAP_TLS ]]  # Whether a TLS connection is required(for example: yes/no)
+            LDAP_BASE_DN: [[ LDAP_BASE_DN ]]  # Base DN(for example: ou=people,dc=example,dc=com)
+            LDAP_SEARCH_FILTER: [[ LDAP_SEARCH_FILTER ]]  # User Search Filter(for example: (uid=%u))
+            TLS_REQCERT: [[ TLS_REQCERT ]]
+            KEY_COUNTRY: [[ COUNTRT ]]  # The state abbreviations(for example: CN)
+            KEY_PROVINCE: [[ PROVINCE ]]  # Province shorthand(for example: BJ)
+            KEY_CITY: [[ CITY ]]  # City(for example: BeiJing)
+            KEY_ORG: [[ ORG ]]  # organisation(for example: shannon.ai)
+            KEY_OU: [[ OU ]]  # affiliated unit(for example: shannon.ai)
+            KEY_EMAIL: [[ EMAIL ]]  # Email(for example: contact@shannonai.com)
+            KEY_SIZE: [[ SIZE ]]  # The private key size(for example: 2048)
+
