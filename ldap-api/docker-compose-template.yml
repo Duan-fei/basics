@@ -1,0 +1,19 @@
+version: '3'
+services:
+    ldap-api:
+        image: [[ IMAGE_NAME ]]
+        container_name: [[ CONTAINER_NAME ]]
+        network_mode: bridge
+        restart: always
+        environment:
+            - HOST_IP=${HOST_IP}
+            - SERVICE_8080_NAME=[[ SERVICE_NAME ]]
+            - SERVICE_8080_TAGS=traefik.enable=true,SubDomain={{ SubDomain }}
+            - SERVICE_8080_CHECK_HTTP=/health
+            - SERVICE_8080_CHECK_INTERVAL=30s
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./logs:/home/work/logs:rw
+            - ./assets:/home/work/assets:ro
+            - ./conf/:/home/work/conf/:ro

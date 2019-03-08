@@ -1,0 +1,12 @@
+package e
+
+const (
+	SUCCESS        = 200
+	ERROR          = 500
+
+	INVALID_PARAMS = 10000
+	ERROR_NOT_EXIST_DN     = 10001
+	ERROR_WRONG_PASSWORD   = 10002
+
+	ERROR_UNKNOWN	= 99999
+)
