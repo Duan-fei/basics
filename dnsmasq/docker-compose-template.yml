@@ -1,0 +1,15 @@
+version: '3.2'
+services:
+    dnsmasq:
+        image: [[ IMAGE_NAME ]]
+        container_name: [[ SERVICE_NAME ]]
+        network_mode: host
+        restart: always
+        volumes:
+            - ./conf:/etc/dnsmasq
+            - ./conf/logrotate:/etc/logrotate.d
+            - ./logs:/var/log/dnsmasq
+        ports:
+            - "53"
+        cap_add:
+            - NET_ADMIN
