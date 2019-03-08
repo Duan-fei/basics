@@ -1,0 +1,42 @@
+version: '3.2'
+services:
+  openldap:
+    image: openldap
+    container_name: openldap
+    network_mode: bridge
+    domainname: "ldap.shannonai.com" # important: same as hostname
+    hostname: "ldap.shannonai.com"
+    environment:
+      LDAP_LOG_LEVEL: "0"
+      LDAP_ORGANISATION: "ShannonAI Inc."
+      LDAP_DOMAIN: "shannonai.com"
+      LDAP_BASE_DN: "dc=shannonai,dc=com"
+      LDAP_ADMIN_PASSWORD: "secret" # password for entry 'cn=admin,dc=shannonai,dc=com'
+      LDAP_CONFIG_PASSWORD: "config" # password for 'cn=admin,cn=config'
+      LDAP_READONLY_USER: "false"
+      #LDAP_READONLY_USER_USERNAME: "readonly"
+      #LDAP_READONLY_USER_PASSWORD: "readonly"
+      LDAP_RFC2307BIS_SCHEMA: "false"
+      LDAP_BACKEND: "mdb"
+      LDAP_TLS: "true"
+      LDAP_TLS_CRT_FILENAME: "ldap.crt" # crt filename
+      LDAP_TLS_KEY_FILENAME: "ldap.key" # key filename
+      LDAP_TLS_CA_CRT_FILENAME: "ca.crt" # ca crt filename
+      LDAP_TLS_ENFORCE: "true"
+      LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+      LDAP_TLS_PROTOCOL_MIN: "3.1"
+      LDAP_TLS_VERIFY_CLIENT: "never" # allow, demand, never
+      LDAP_REPLICATION: "false"
+      #LDAP_REPLICATION_CONFIG_SYNCPROV: "binddn="cn=admin,cn=config" bindmethod=simple credentials=$LDAP_CONFIG_PASSWORD searchbase="cn=config" type=refreshAndPersist retry="60 +" timeout=1 starttls=critical"
+      #LDAP_REPLICATION_DB_SYNCPROV: "binddn="cn=admin,$LDAP_BASE_DN" bindmethod=simple credentials=$LDAP_ADMIN_PASSWORD searchbase="$LDAP_BASE_DN" type=refreshAndPersist interval=00:00:00:10 retry="60 +" timeout=1 starttls=critical"
+      #LDAP_REPLICATION_HOSTS: "#PYTHON2BASH:['ldap://ldap.example.org','ldap://ldap2.example.org']"
+      KEEP_EXISTING_CONFIG: "false"
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+      LDAP_SSL_HELPER_PREFIX: "ldap"
+    ports:
+      - "389:389"
+    volumes:
+      - ./data:/var/lib/ldap
+      - ./logs:/var/log/ldap
+      - ./conf:/etc/ldap/slapd.d
+      - ./certs:/container/service/slapd/assets/certs/
