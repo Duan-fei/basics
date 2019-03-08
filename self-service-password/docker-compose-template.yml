@@ -1,0 +1,20 @@
+version: '3'
+services:
+    self-service-password:
+        image: [[ IMAGE_NAME ]]
+        container_name: [[ SERVICE_NAME ]]
+        network_mode: bridge
+        restart: always
+        ports:
+            - "8888:8888"
+        environment:
+            # Always use double quotation marks
+            - LDAP_SERVICE=[[ LDAP_SERVICE ]] # for example —> "ldaps://localhost:389/636"
+            - LDAP_BINDDN=[[ LDAP_BINDDN ]] # for example —> "cn=admin,dc=example,dc=com"
+            - LDAP_BINDPW=[[ LDAP_BINDPW ]] # for example —> "qwer1234"
+            - LDAP_BASEDN=[[ LDAP_BASEDN ]] # for example —>  "dc=shannon,dc=com"
+            - LDAP_LOGIN_ATTR=[[ LDAP_LOGIN_ATTR ]] # for example —> "cn"
+            - LDAP_FILTER=[[ LDAP_FILTER ]] # for example —> "(\&(objectClass=inetOrgPerson)(cn={login}))"
+            - DEBUG=[[ DEBUG ]] # for example —> false
+        volumes:
+            - ./logs:/var/log/apache2
